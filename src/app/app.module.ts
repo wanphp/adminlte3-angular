@@ -47,12 +47,7 @@ import {ProfileComponent} from "@pages/profile/profile.component";
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    OAuthModule.forRoot({
-      resourceServer: {
-        allowedUrls: ['https://source.ztnews.net'], // 允许访问的资源服务器 URL
-        sendAccessToken: true, // 是否在请求中发送访问令牌
-      }
-    })
+    OAuthModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
