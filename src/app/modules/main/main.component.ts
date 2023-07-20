@@ -1,17 +1,17 @@
 import {AppState} from '@/store/state';
 import {ToggleSidebarMenu} from '@/store/ui/actions';
 import {UiState} from '@/store/ui/state';
-import {Component, HostBinding, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  host: {'[class.app-wrapper]': `true`}
 })
 export class MainComponent implements OnInit {
-  @HostBinding('class') class = 'wrapper';
   public ui: Observable<UiState> = new Observable<UiState>();
 
   constructor(private renderer: Renderer2, private store: Store<AppState>) {
@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
     );
 
     this.ui.subscribe(
-      ({menuSidebarCollapsed, controlSidebarCollapsed, darkMode}) => {
+      ({menuSidebarCollapsed, darkMode}) => {
         if (menuSidebarCollapsed) {
           this.renderer.removeClass(
             document.querySelector('app-root'),
@@ -50,30 +50,21 @@ export class MainComponent implements OnInit {
           );
         }
 
-        if (controlSidebarCollapsed) {
-          this.renderer.removeClass(
-            document.querySelector('app-root'),
-            'control-sidebar-slide-open'
-          );
-        } else {
-          this.renderer.addClass(
-            document.querySelector('app-root'),
-            'control-sidebar-slide-open'
-          );
-        }
-
         if (darkMode) {
-          this.renderer.addClass(
-            document.querySelector('app-root'),
-            'dark-mode'
+          this.renderer.setAttribute(
+            document.querySelector('body'),
+            'data-bs-theme','dark'
           );
         } else {
-          this.renderer.removeClass(
-            document.querySelector('app-root'),
-            'dark-mode'
+          this.renderer.removeAttribute(
+            document.querySelector('body'),
+            'data-bs-theme'
           );
         }
       }
     );
+  }
+  onToggleMenuSidebar() {
+    this.store.dispatch(new ToggleSidebarMenu());
   }
 }

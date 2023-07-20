@@ -16,12 +16,12 @@ import {DashboardComponent} from '@pages/dashboard/dashboard.component';
 import {MainMenuComponent} from '@pages/main-menu/main-menu.component';
 import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import {MenuItemComponent} from '@components/menu-item/menu-item.component';
-import {ControlSidebarComponent} from '@modules/main/control-sidebar/control-sidebar.component';
 import {StoreModule} from '@ngrx/store';
 import {uiReducer} from './store/ui/reducer';
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
+import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -36,7 +36,6 @@ import {ProfileComponent} from "@pages/profile/profile.component";
     MainMenuComponent,
     SubMenuComponent,
     MenuItemComponent,
-    ControlSidebarComponent,
     OauthComponent,
     ProfileComponent
   ],
@@ -47,7 +46,8 @@ import {ProfileComponent} from "@pages/profile/profile.component";
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    NgbDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

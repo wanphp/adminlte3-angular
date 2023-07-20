@@ -1,7 +1,10 @@
-<div class="float-right d-none d-sm-block"><b>Version</b> {{ appVersion }}</div>
-<strong>
-  <span>Copyright &copy; {{ currentYear }}</span>
-  <a href="https://wanphp.com" target="_blank" rel="noopener noreferrer" class="m-0"> wanphp.com</a>
-  <span>.</span>
-</strong>
-<span> All rights reserved.</span>
+<!-- To the end -->
+<div class="float-end d-none d-sm-inline">
+  <b>Version</b> {{ appVersion }}
+  <button type="button" style="width: 31px;" class="btn btn-sm" [class]="{'btn-dark':!darkMode,'btn-light':darkMode}"
+          (click)="handleDarkModeChange()">
+    <i [class]="{'fa-moon':!darkMode,'fa-sun':darkMode,'fa-solid':!darkMode,'fa-regular':darkMode}"></i>
+  </button>
+</div>
+<!-- Default to the start -->
+<strong>Copyright &copy; {{ currentYear }} <a href="https://wanphp.com">wanphp.com</a>.</strong> All rights reserved.

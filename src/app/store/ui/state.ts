@@ -1,17 +1,9 @@
 export default <UiState>{
-    darkMode: false,
-    navbarVariant: 'navbar-light',
-    sidebarSkin: 'sidebar-light-primary',
-    menuSidebarCollapsed: false,
-    controlSidebarCollapsed: true
-    // screenSize: calculateWindowSize(window.innerWidth)
+  darkMode: localStorage.getItem('darkMode') == 'true',
+  menuSidebarCollapsed: window.innerWidth < 768
 };
 
 export interface UiState {
-    darkMode: boolean;
-    menuSidebarCollapsed: boolean;
-    controlSidebarCollapsed: boolean;
-    navbarVariant: string;
-    sidebarSkin: string;
-    screenSize: any;
+  darkMode: boolean;
+  menuSidebarCollapsed: boolean;
 }

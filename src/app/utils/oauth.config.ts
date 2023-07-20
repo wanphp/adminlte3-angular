@@ -5,7 +5,7 @@ export const authConfig: AuthConfig = {
   tokenEndpoint: 'https://www.wanphp.com/auth/accessToken',
   userinfoEndpoint: 'https://www.wanphp.com/api/userProfile',
   clientId: 'testClient',
-  redirectUri: window.location.origin + '/adminlte3-angular/oauth',
+  redirectUri: window.location.origin + '/adminlte4-angular/oauth',
   responseType: 'code',
   requireHttps: true,
   skipSubjectCheck: true

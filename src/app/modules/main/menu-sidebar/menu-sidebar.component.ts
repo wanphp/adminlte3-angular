@@ -1,11 +1,9 @@
-import {AppState} from '@/store/state';
 import {UiState} from '@/store/ui/state';
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {OAuthService} from "angular-oauth2-oidc";
 
-const BASE_CLASSES = 'main-sidebar elevation-4';
+const BASE_CLASSES = 'app-sidebar bg-body-tertiary shadow';
 
 @Component({
   selector: 'app-menu-sidebar',
@@ -18,17 +16,10 @@ export class MenuSidebarComponent implements OnInit {
   public user: any;
   public menu: any;
 
-  constructor(
-    public oauthService: OAuthService,
-    private store: Store<AppState>
-  ) {
+  constructor(public oauthService: OAuthService) {
   }
 
   ngOnInit() {
-    this.ui = this.store.select('ui');
-    this.ui.subscribe((state: UiState) => {
-      this.classes = `${BASE_CLASSES} ${state.sidebarSkin}`;
-    });
     this.user = this.oauthService.getIdentityClaims();
     this.menu = [
       {

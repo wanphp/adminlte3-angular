@@ -13,10 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/adminlte3-angular",
+            "outputPath": "dist/adminlte4-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "baseHref": "/adminlte3-angular/",
+            "baseHref": "/adminlte4-angular/",
             "polyfills": [
               "zone.js"
             ],

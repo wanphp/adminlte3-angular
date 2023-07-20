@@ -1,13 +1,12 @@
 import {AppState} from '@/store/state';
-import {ToggleControlSidebar, ToggleSidebarMenu} from '@/store/ui/actions';
+import {ToggleSidebarMenu} from '@/store/ui/actions';
 import {UiState} from '@/store/ui/state';
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {UntypedFormGroup, UntypedFormControl} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {OAuthService} from "angular-oauth2-oidc";
 
-const BASE_CLASSES = 'main-header navbar navbar-expand';
+const BASE_CLASSES = 'app-header navbar navbar-expand bg-body-secondary';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +24,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ui = this.store.select('ui');
-    this.ui.subscribe((state: UiState) => {
-      this.classes = `${BASE_CLASSES} ${state.navbarVariant}`;
-    });
   }
 
   logout() {
@@ -38,9 +33,5 @@ export class HeaderComponent implements OnInit {
 
   onToggleMenuSidebar() {
     this.store.dispatch(new ToggleSidebarMenu());
-  }
-
-  onToggleControlSidebar() {
-    this.store.dispatch(new ToggleControlSidebar());
   }
 }
