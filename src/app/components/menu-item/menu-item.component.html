@@ -6,7 +6,7 @@
 </a>
 <ul class="nav nav-treeview" [@openClose]="isMenuExtended">
   <li class="nav-item" *ngFor="let item of menuItem.children">
-    <a [routerLink]="item.path" [routerLinkActive]="'active'" class="nav-link">
+    <a (click)="menuAction(item)" [routerLinkActive]="'active'" class="nav-link">
       <i class="nav-icon {{ item.iconClasses }}"></i>
       <p>{{ item.name }}</p>
     </a>

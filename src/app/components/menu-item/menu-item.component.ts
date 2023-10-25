@@ -1,7 +1,10 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit, Renderer2} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {openCloseAnimation, rotateAnimation} from './menu-item.animations';
+import {Store} from "@ngrx/store";
+import {AppState} from "@/store/state";
+import {ToggleSidebarMenu} from "@/store/ui/actions";
 
 @Component({
   selector: 'app-menu-item',
@@ -17,7 +20,7 @@ export class MenuItemComponent implements OnInit {
   public isMainActive: boolean = false;
   public isOneOfChildrenActive: boolean = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private renderer: Renderer2, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -41,11 +44,19 @@ export class MenuItemComponent implements OnInit {
       this.toggleMenu();
       return;
     }
-    this.router.navigate(this.menuItem.path);
+    this.menuAction(this.menuItem);
   }
 
   public toggleMenu() {
     this.isMenuExtended = !this.isMenuExtended;
+  }
+
+  menuAction(menu: any) {
+    if (window.innerWidth < 992) {
+      this.store.dispatch(new ToggleSidebarMenu());
+      this.renderer.removeClass(document.querySelector('app-root'), 'sidebar-is-hover');
+    }
+    if (menu.path) this.router.navigate(menu.path).then();
   }
 
   public calculateIsActive(url: string) {

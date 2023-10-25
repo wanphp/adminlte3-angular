@@ -17,11 +17,12 @@ import {MainMenuComponent} from '@pages/main-menu/main-menu.component';
 import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import {MenuItemComponent} from '@components/menu-item/menu-item.component';
 import {StoreModule} from '@ngrx/store';
-import {uiReducer} from './store/ui/reducer';
+import {uiReducer} from '@/store/ui/reducer';
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import {authReducer} from "@/store/auth/reducer";
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ui: uiReducer}),
+    StoreModule.forRoot({auth: authReducer, ui: uiReducer}),
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
