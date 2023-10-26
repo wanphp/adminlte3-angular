@@ -18,11 +18,12 @@ import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import {MenuItemComponent} from '@components/menu-item/menu-item.component';
 import {StoreModule} from '@ngrx/store';
 import {uiReducer} from '@/store/ui/reducer';
+import {authReducer} from "@/store/auth/reducer";
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
-import {authReducer} from "@/store/auth/reducer";
+import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {authReducer} from "@/store/auth/reducer";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgbDropdownModule
+    NgbDropdownModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
