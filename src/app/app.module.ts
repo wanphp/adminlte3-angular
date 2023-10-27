@@ -24,6 +24,7 @@ import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
+import {UploaderComponent} from "@components/uploader/uploader.component";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
     SubMenuComponent,
     MenuItemComponent,
     OauthComponent,
-    ProfileComponent
+    ProfileComponent,
+    UploaderComponent
   ],
   imports: [
     BrowserModule,

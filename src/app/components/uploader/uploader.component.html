@@ -1,0 +1,42 @@
+<div class="pb-3">
+  <div class="uploader">
+    <div class="uploader__hd">
+      <div class="uploader__title">{{title}}</div>
+      <div class="uploader__info">{{ uploader.uploadedCount }}/{{ uploader.queue.length }}</div>
+    </div>
+    <div class="uploader__bd">
+      <ul class="uploader__files">
+        <li class="uploader__file" *ngFor="let item of uploader.queue" style="background-image:url({{item.thumb}})"
+            (click)="onGallery(item)" [ngClass]="{ 'uploader__file_status': item.isError||item.isUploading }"
+            [style.background-size]="item.fileMimeClass!=='image'?'70% 70%':''"
+            [style.background-color]="item.fileMimeClass!=='image'?'#ededed':''">
+          <div class="uploader__file-content text-red" *ngIf="item.isUploading">{{ item.progress }}%</div>
+          <div class="uploader__file-content" *ngIf="item.isError"><i class="icon-warn"></i></div>
+        </li>
+      </ul>
+      <div class="uploader__input-box" *ngIf="uploader.queue.length<uploader.options.limit">
+        <input *ngIf="!isWxBrowserSelectImage()" class="uploader__input" type="file" accept="{{acceptType}}"
+               [multiple]="uploader.options.limit!=1"
+               (change)="change($event)">
+        <button *ngIf="isWxBrowserSelectImage()" class="uploader__input" (click)="selectImage()"></button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="viewFile" [style.display]="imgShow ? 'block' : 'none'" class="gallery" (click)="hideGallery($event)"
+       style="top: 0; left: 0;right: 0;bottom: 0">
+        <span class="gallery__img" style="background-image: url('{{viewFile.thumb}}');display: flex; align-items: center;"
+              [style.background-size]="!['image','video','audio'].includes(viewFile.fileMimeClass)?'70% 70%':''"
+              [style.background-color]="!['image','video','audio'].includes(viewFile.fileMimeClass)?'white':''">
+          <video #media *ngIf="['video','audio'].includes(viewFile.fileMimeClass)" src="{{viewFile.uploadedFile}}" controls width="100%"
+                 [style.height]="viewFile.fileMimeClass=='audio'?'50px':''"></video>
+        </span>
+    <div class="gallery__opr">
+          <span role="button" aria-label="删除" (click)="onDel(viewFile)" class="gallery__del">
+            <i class="fa-solid fa-trash"></i>
+          </span>
+    </div>
+  </div>
+</div>
+<div class="mb-1" *ngIf="!uploader.options.auto">
+  <button class="btn btn-primary" (click)="uploader.uploadAll()" [disabled]="uploader.isUploading">上传</button>
+</div>
