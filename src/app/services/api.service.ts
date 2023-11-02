@@ -6,7 +6,7 @@ import {AppState} from "@/store/state";
 import {catchError} from "rxjs/operators";
 import {authConfig} from "@/utils/oauth.config";
 import {ParallelHasher} from "ts-md5";
-import {SweetAlert2LoaderService} from "@sweetalert2/ngx-sweetalert2";
+import {ToastService} from "@components/toasts/toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private store: Store<AppState>,
-    private sweetAlert2LoaderService: SweetAlert2LoaderService
+    private toastService: ToastService
   ) {
     this.store.select('auth').subscribe(({token}) => {
       this.headers = this.headers.set('Authorization', 'Bearer ' + token);
@@ -69,12 +69,7 @@ export class ApiService {
       localStorage.removeItem('access_token');
       location.reload();
     }
-    if (response.status == 400) this.sweetAlert2LoaderService.swal.then((sweetAlert) => {
-      sweetAlert.mixin({toast: true, position: 'top', showConfirmButton: false, timer: 3000}).fire({
-        icon: 'error',
-        title: response.error.errMsg
-      }).then();
-    })
+    if (response.status == 400) this.toastService.warn(response.error.errMsg);
     return of(undefined);
   }
 

@@ -22,10 +22,9 @@ import {authReducer} from "@/store/auth/reducer";
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
-import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
-import {SweetAlert2Module} from "@sweetalert2/ngx-sweetalert2";
+import {NgbDropdownModule, NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
 import {UploaderComponent} from "@components/uploader/uploader.component";
-
+import {ToastsComponent} from "@components/toasts/toasts.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +40,8 @@ import {UploaderComponent} from "@components/uploader/uploader.component";
     MenuItemComponent,
     OauthComponent,
     ProfileComponent,
-    UploaderComponent
+    UploaderComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +52,7 @@ import {UploaderComponent} from "@components/uploader/uploader.component";
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
     NgbDropdownModule,
-    SweetAlert2Module.forRoot()
+    NgbToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

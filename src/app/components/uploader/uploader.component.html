@@ -1,12 +1,12 @@
 <div class="pb-3">
   <div class="uploader">
-    <div class="uploader__hd">
-      <div class="uploader__title">{{title}}</div>
-      <div class="uploader__info">{{ uploader.uploadedCount }}/{{ uploader.queue.length }}</div>
+    <div class="d-flex justify-content-between pb-2">
+      {{title}}
+      <div class="text-secondary">{{ uploader.uploadedCount }}/{{ uploader.queue.length }}</div>
     </div>
-    <div class="uploader__bd">
+    <div class="clearfix">
       <ul class="uploader__files">
-        <li class="uploader__file" *ngFor="let item of uploader.queue" style="background-image:url({{item.thumb}})"
+        <li class="uploader__file float-start mb-2 me-2" *ngFor="let item of uploader.queue" style="background-image:url({{item.thumb}})"
             (click)="onGallery(item)" [ngClass]="{ 'uploader__file_status': item.isError||item.isUploading }"
             [style.background-size]="item.fileMimeClass!=='image'?'70% 70%':''"
             [style.background-color]="item.fileMimeClass!=='image'?'#ededed':''">
@@ -14,11 +14,11 @@
           <div class="uploader__file-content" *ngIf="item.isError"><i class="icon-warn"></i></div>
         </li>
       </ul>
-      <div class="uploader__input-box" *ngIf="uploader.queue.length<uploader.options.limit">
-        <input *ngIf="!isWxBrowserSelectImage()" class="uploader__input" type="file" accept="{{acceptType}}"
+      <div class="uploader__input-box mb-2 me-2 float-start bg-light position-relative" *ngIf="uploader.queue.length<uploader.options.limit">
+        <input *ngIf="!isWxBrowserSelectImage()" class="position-absolute top-0 start-0 end-0 bottom-0 opacity-0 z-1" type="file" accept="{{acceptType}}"
                [multiple]="uploader.options.limit!=1"
                (change)="change($event)">
-        <button *ngIf="isWxBrowserSelectImage()" class="uploader__input" (click)="selectImage()"></button>
+        <button *ngIf="isWxBrowserSelectImage()" class="position-absolute top-0 start-0 end-0 bottom-0 opacity-0 z-1" (click)="selectImage()"></button>
       </div>
     </div>
   </div>

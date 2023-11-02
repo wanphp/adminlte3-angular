@@ -6,7 +6,7 @@ import {FileType} from "@components/uploader/file-type.class";
 import {ApiService} from "@services/api.service";
 import {Store} from "@ngrx/store";
 import {AppState} from "@/store/state";
-import {SweetAlert2LoaderService} from "@sweetalert2/ngx-sweetalert2";
+import {ToastService} from "@components/toasts/toast.service";
 
 export interface UploaderConfig {
   url: string;
@@ -154,7 +154,7 @@ export class UploaderComponent {
     rendererFactory: RendererFactory2,
     private store: Store<AppState>,
     private apiService: ApiService,
-    private sweetAlert2LoaderService: SweetAlert2LoaderService
+    private toastService: ToastService
   ) {
     this.render = rendererFactory.createRenderer(null, null);
     this.store.select('ui').subscribe(({wx}) => {
@@ -329,11 +329,6 @@ export class UploaderComponent {
     });
 
   error(message: string) {
-    this.sweetAlert2LoaderService.swal.then((sweetAlert) => {
-      sweetAlert.mixin({toast: true, position: 'top', showConfirmButton: false, timer: 5000}).fire({
-        icon: 'error',
-        title: message
-      }).then();
-    });
+    this.toastService.warn(message);
   }
 }

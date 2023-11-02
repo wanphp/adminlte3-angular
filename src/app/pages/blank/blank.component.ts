@@ -4,11 +4,12 @@ import {authConfig} from "@/utils/oauth.config";
 import {Title} from "@angular/platform-browser";
 import {AppState} from "@/store/state";
 import {Store} from "@ngrx/store";
-import {SweetAlert2LoaderService} from "@sweetalert2/ngx-sweetalert2";
+import {ToastService} from "@components/toasts/toast.service";
+
 @Component({
-    selector: 'app-blank',
-    templateUrl: './blank.component.html',
-    styleUrls: ['./blank.component.css']
+  selector: 'app-blank',
+  templateUrl: './blank.component.html',
+  styleUrls: ['./blank.component.css']
 })
 export class BlankComponent {
   imageConfig: UploaderConfig = {
@@ -27,7 +28,7 @@ export class BlankComponent {
   constructor(
     private title: Title,
     private store: Store<AppState>,
-    private sweetAlert2LoaderService: SweetAlert2LoaderService
+    private toastService: ToastService
   ) {
     this.title.setTitle('上传文件');
     this.store.select('auth').subscribe(({currentUser, token}) => {
@@ -40,25 +41,17 @@ export class BlankComponent {
         mimes: ['pdf']
       }
     });
+    this.toastService.success('文件上传成功', 'top_end', 20000)
+    this.toastService.setPosition('top-end').show('<h1>标题测试</h1>', '标题')
   }
 
   uploadImage(images: uploadFile[]) {
-    console.log(images,this.filesImage);
-    if (images.length) this.sweetAlert2LoaderService.swal.then((sweetAlert) => {
-      sweetAlert.mixin({toast: true, position: 'top', showConfirmButton: false, timer: 5000}).fire({
-        icon: 'success',
-        title: '文件上传成功'
-      }).then();
-    });
+    console.log(images, this.filesImage);
+    if (images.length) this.toastService.success('文件上传成功');
   }
 
   uploadPdf(files: uploadFile[]) {
     console.log(files);
-    if (files.length) this.sweetAlert2LoaderService.swal.then((sweetAlert) => {
-      sweetAlert.mixin({toast: true, position: 'top', showConfirmButton: false, timer: 5000}).fire({
-        icon: 'success',
-        title: '文件上传成功'
-      }).then();
-    });
+    if (files.length) this.toastService.success('文件上传成功');
   }
 }
