@@ -1,7 +1,11 @@
 import {Component, HostBinding, Input} from '@angular/core';
+import {NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgFor} from "@angular/common";
 
 @Component({
   selector: 'app-toasts',
+  standalone: true,
+  imports: [NgbToastModule, NgFor],
   template: `
     <ngb-toast
       *ngFor="let toast of toasts"

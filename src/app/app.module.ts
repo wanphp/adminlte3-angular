@@ -22,9 +22,8 @@ import {authReducer} from "@/store/auth/reducer";
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
-import {NgbDropdownModule, NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {UploaderComponent} from "@components/uploader/uploader.component";
-import {ToastsComponent} from "@components/toasts/toasts.component";
 
 @NgModule({
   declarations: [
@@ -40,8 +39,7 @@ import {ToastsComponent} from "@components/toasts/toasts.component";
     MenuItemComponent,
     OauthComponent,
     ProfileComponent,
-    UploaderComponent,
-    ToastsComponent
+    UploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +49,7 @@ import {ToastsComponent} from "@components/toasts/toasts.component";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgbDropdownModule,
-    NgbToastModule
+    NgbDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]
