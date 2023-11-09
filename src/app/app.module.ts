@@ -22,7 +22,7 @@ import {authReducer} from "@/store/auth/reducer";
 import {OAuthModule} from 'angular-oauth2-oidc';
 import {OauthComponent} from '@modules/oauth/oauth.component';
 import {ProfileComponent} from "@pages/profile/profile.component";
-import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDropdownModule, NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import {UploaderComponent} from "@components/uploader/uploader.component";
 
 @NgModule({
@@ -49,7 +49,8 @@ import {UploaderComponent} from "@components/uploader/uploader.component";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     OAuthModule.forRoot(),
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgbTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

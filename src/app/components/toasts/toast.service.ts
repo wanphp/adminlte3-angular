@@ -8,7 +8,7 @@ export class ToastService extends ComponentService {
   componentRef: any;
 
   /**
-   * 设置显示位置 top|meddle|bottom|top-start|top-end|bottom-start|bottom-end
+   * 设置显示位置 top|middle|bottom|top-start|top-end|bottom-start|bottom-end
    * @param position
    */
   setPosition(position: string) {
@@ -39,17 +39,17 @@ export class ToastService extends ComponentService {
   /**
    *
    * @param text 文本
-   * @param [position] 显示位置 top|meddle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
+   * @param [position] 显示位置 top|middle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
    * @param [delay] 显示时长后自动关闭（单位：ms）（可选）
    */
   default(text: string, position: string = 'top', delay: number = 2000) {
-    this.setPosition(position).show(text, '', '', delay);
+    this.setPosition(position).show(text, '', 'bg-body-tertiary', delay);
   }
 
   /**
    *
    * @param text 文本
-   * @param [position] 显示位置 top|meddle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
+   * @param [position] 显示位置 top|middle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
    * @param [delay] 显示时长后自动关闭（单位：ms）（可选）
    */
   success(text: string, position: string = 'top', delay: number = 2000) {
@@ -59,7 +59,7 @@ export class ToastService extends ComponentService {
   /**
    *
    * @param text 文本
-   * @param [position] 显示位置 top|meddle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
+   * @param [position] 显示位置 top|middle|bottom|top-start|top-end|bottom-start|bottom-end（可选）
    * @param [delay] 显示时长后自动关闭（单位：ms）（可选）
    */
   warn(text: string, position: string = 'top', delay: number = 2000) {

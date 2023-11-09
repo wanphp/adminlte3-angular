@@ -41,8 +41,6 @@ export class BlankComponent {
         mimes: ['pdf']
       }
     });
-    this.toastService.success('文件上传成功', 'top_end', 20000)
-    this.toastService.setPosition('top-end').show('<h1>标题测试</h1>', '标题')
   }
 
   uploadImage(images: uploadFile[]) {
@@ -53,5 +51,33 @@ export class BlankComponent {
   uploadPdf(files: uploadFile[]) {
     console.log(files);
     if (files.length) this.toastService.success('文件上传成功');
+  }
+
+  showTop() {
+    this.toastService.default('文件上传成功');
+  }
+
+  showMeddle() {
+    this.toastService.success('文件上传成功','middle')
+  }
+
+  showBottom() {
+    this.toastService.warn('文件上传失败','bottom')
+  }
+
+  showTopStart() {
+    this.toastService.default('文件上传成功','top-start',5000)
+  }
+
+  showTopEnd() {
+    this.toastService.setPosition('top-end').show('<h1>文件上传成功</h1>', '标题','',10000)
+  }
+
+  showBottomStart() {
+    this.toastService.default('文件上传成功','bottom-start')
+  }
+
+  showBottomEnd() {
+    this.toastService.default('文件上传成功','bottom-end')
   }
 }
