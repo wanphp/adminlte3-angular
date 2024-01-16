@@ -24,6 +24,13 @@
   height: 96px;
 }
 
+@media (max-width: 768px) {
+  .uploader__input-box, .uploader__file {
+    width: 48px;
+    height: 48px;
+  }
+}
+
 .uploader__input-box::before,
 .uploader__input-box::after {
   content: " ";

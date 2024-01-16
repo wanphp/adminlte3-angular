@@ -139,6 +139,7 @@ export class Uploader {
         if (this.isValidFile(file)) {
           const fileItem = new FileItem(this, file, options!);
           fileItem.index = this._queue.length;
+          fileItem.name = file.name;
           this._queue.push(fileItem);
           if (this._options.onFileQueued) {
             this._options.onFileQueued(fileItem);
@@ -153,6 +154,7 @@ export class Uploader {
         const fileItem = new FileItem(this, file.url, options!);
         fileItem._onSuccess(file, 0, {});//标记为已上传
         this._queue.push(fileItem);
+        fileItem.name = file.name;
         if (this._options.onFileQueued) {
           this._options.onFileQueued(fileItem);
         }

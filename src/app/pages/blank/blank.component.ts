@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {UploaderConfig, uploadFile} from "@components/uploader/uploader.component";
-import {authConfig} from "@/utils/oauth.config";
 import {Title} from "@angular/platform-browser";
 import {AppState} from "@/store/state";
 import {Store} from "@ngrx/store";
@@ -13,7 +12,7 @@ import {ToastService} from "@components/toasts/toast.service";
 })
 export class BlankComponent {
   imageConfig: UploaderConfig = {
-    url: `${authConfig.issuer}/api`,
+    url: 'https://images.ztnews.net/api',
     auto: true,
     mimes: ['image'],
     limit: 1,

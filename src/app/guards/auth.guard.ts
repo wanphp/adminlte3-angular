@@ -36,6 +36,8 @@ export class AuthGuard {
     } else {
       // 用户未认证，重定向到授权端点
       this.oauthService.loadDiscoveryDocumentAndLogin().then();
+      // 记录当前url
+      localStorage.setItem('currentPath', window.location.toString());
       return false;
     }
   }

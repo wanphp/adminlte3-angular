@@ -1,60 +1,42 @@
-<div class="app-content-header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-6">
-        <h3 class="mb-0">Profile</h3>
-      </div>
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-end">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-        </ol>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Main content -->
-<div class="app-content">
-  <div class="container-fluid">
-    <div class="row g-4">
-      <!-- Start column -->
-      <div class="col">
-        <!-- general form elements -->
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <div class="card-title">
-              Quick Example
+<div class="app-content pt-2">
+  <div class="row g-4">
+    <!-- Start column -->
+    <div class="col">
+      <!-- general form elements -->
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <div class="card-title">完善人个信息</div>
+        </div>
+        <div class="card-body">
+          <div class="was-validated">
+            <div class="mb-3">
+              <label class="form-label">姓名</label>
+              <input class="form-control" type="text" [(ngModel)]="user.name" placeholder="请填写您的名字" required #name="ngModel">
+              <div class="invalid-feedback">请填写姓名</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">手机号</label>
+              <input class="form-control" type="tel" [(ngModel)]="user.tel" placeholder="请填写手机号" required
+                     pattern="^(13[0-9]|14[579]|15[0-35-9]|16[6]|17[0-9]|18[0-9]|19[12589])\d{8}$" #tel="ngModel">
+              <div class="invalid-feedback">请填写手机号</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">单位</label>
+              <input class="form-control" type="text" [(ngModel)]="user.remark" placeholder="请填写所在单位，可留空">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">通信地址</label>
+              <input class="form-control" type="text" [(ngModel)]="user.address" placeholder="请填写通信地址">
             </div>
           </div>
-          <form>
-            <div class="card-body">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-              <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-              </div>
-            </div>
-            <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-          </form>
         </div>
-        <!-- /.card -->
+        <div class="card-footer text-center">
+          <button type="submit" class="btn btn-primary" (click)="updateUser()">提交</button>
+        </div>
       </div>
+      <!-- /.card -->
     </div>
-    <!-- /.row -->
-  </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.row -->
 </div>

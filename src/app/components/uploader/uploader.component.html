@@ -24,15 +24,22 @@
               (click)="selectImage()"></button>
     </div>
   </div>
-  <div *ngIf="viewFile" [style.display]="imgShow ? 'block' : 'none'" class="bg-black position-fixed bottom-0 top-0 start-0 end-0"
+  <div *ngIf="viewFile" [style.display]="imgShow ? 'block' : 'none'" class="position-fixed bottom-0 top-0 start-0 end-0"
+       [class.bg-black]="['image','video','audio'].includes(viewFile.fileMimeClass)"
+       [class.bg-white]="!['image','video','audio'].includes(viewFile.fileMimeClass)"
        style="z-index: 1200" (click)="hideGallery($event)">
-        <span class="position-absolute bottom-0 top-0 start-0 end-0 mb-5"
-              style="background-position: center; background-repeat: no-repeat; background-image: url('{{viewFile.thumb}}')"
-              [style.background-size]="!['image','video','audio'].includes(viewFile.fileMimeClass)?'70% 70%':'contain'"
-              [style.background-color]="!['image','video','audio'].includes(viewFile.fileMimeClass)?'white':''">
-          <video #media *ngIf="['video','audio'].includes(viewFile.fileMimeClass)" src="{{viewFile.uploadedFile}}" controls width="100%"
-                 [style.height]="viewFile.fileMimeClass=='audio'?'50px':''"></video>
-        </span>
+    <h1 class="position-absolute bg-body-secondary p-1 start-0 end-0 top-0 lh-lg input-group" style="z-index: 1201">
+      <input #i class="form-control" (blur)="onUpdate(viewFile.id,i.value)" (keyup.enter)="onUpdate(viewFile.id,i.value)" [value]="viewFile.name"
+             ngbPopover="修改名称">
+      <button type="button" class="btn-close btn btn-outline-secondary" style="width: 2rem; height: 2rem;"></button>
+    </h1>
+    <video #media *ngIf="['video','audio'].includes(viewFile.fileMimeClass)" src="{{viewFile.uploadedFile}}" controls
+           class="position-fixed top-50 start-50 translate-middle" style="max-width: 100%; max-height: calc(100% - 6rem)"
+           [style.height]="viewFile.fileMimeClass=='audio'?'50px':''"></video>
+    <img *ngIf="!['video','audio'].includes(viewFile.fileMimeClass)" src="{{viewFile.thumb}}"
+         style="max-width: 100%; max-height: calc(100% - 6rem);"
+         [style.height]="viewFile.fileMimeClass!=='image'?'50%':''"
+         class="position-fixed top-50 start-50 translate-middle object-fit-contain">
     <div class="position-absolute bg-danger p-2 start-0 end-0 bottom-0 text-center lh-lg text-white" (click)="onDel(viewFile)" role="button">
       <i class="fa-solid fa-trash"></i>
     </div>

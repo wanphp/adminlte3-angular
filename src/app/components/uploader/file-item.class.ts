@@ -63,6 +63,10 @@ export class FileItem {
    * 缩略图片，文件文件为类型图片
    */
   thumb: string;
+  /**
+   * 文件名
+   */
+  name: string;
 
   /**
    * HTTP请求对象
@@ -80,6 +84,7 @@ export class FileItem {
     this.uploader = uploader;
     if (options) this.setOptions(options);
     let fileMimeClass = '';
+    this.name = '';
     if (file instanceof File) {
       fileMimeClass = FileType.getMimeClass(file);
     } else {
