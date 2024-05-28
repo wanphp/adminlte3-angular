@@ -1,10 +1,10 @@
 export interface UserEntity {
   unionid?: string;
-  nickname: string;
-  headimgurl: string;
-  tagId: number[];
   name?: string;
   tel?: string;
+  nickname: string;
+  headimgurl: string;
+  tagid_list: number[];
   address?: string;
   remark?: string;
   integral?: number;

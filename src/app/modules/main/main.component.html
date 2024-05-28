@@ -3,7 +3,11 @@
 <app-menu-sidebar (mouseenter)="onHover()" (mouseleave)="onLeave()"></app-menu-sidebar>
 
 <div class="app-main">
-  <router-outlet></router-outlet>
+  <div class="app-content px-0 px-md-1">
+    <div class="container-lg p-0 mx-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

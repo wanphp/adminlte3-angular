@@ -36,6 +36,7 @@ export interface UploaderConfig {
 export interface uploadFile {
   id: number;
   url: string;
+  name: string;
   type?: string;
   thumbId?: number;
   thumb?: string;
@@ -169,7 +170,8 @@ export class UploaderComponent {
   }
 
   isWxBrowserSelectImage() {
-    return /micromessenger/.test(navigator.userAgent.toLowerCase()) && this.onlyImage;
+    const userAgent = navigator.userAgent.toLowerCase();
+    return /micromessenger/.test(userAgent) && (/android/.test(userAgent) || /iphone/.test(userAgent)) && this.onlyImage;
   }
 
   selectImage() {
@@ -228,7 +230,7 @@ export class UploaderComponent {
               this.apiService.post('/upload/image', formData, false).subscribe(
                 (res: any) => {
                   let file = this.files.find((file) => file.id === parseInt(fileItem.id));
-                  if (file) {
+                  if (file && res.id) {
                     file.thumbId = res.id;
                     file.thumb = res.url;
                     this.files.splice(this.files.findIndex((file) => file.id === parseInt(fileItem.id)), 1, file);
@@ -244,7 +246,7 @@ export class UploaderComponent {
   // 文件上传完成
   uploadSuccess(fileItem: FileItem) {
     if (this.files && !this.files.find((file) => file.id === parseInt(fileItem.id))) {
-      this.files.push({id: parseInt(fileItem.id), url: fileItem.uploadedFile, type: fileItem.fileMimeClass});
+      this.files.push({id: parseInt(fileItem.id), url: fileItem.uploadedFile, name: fileItem.name, type: fileItem.fileMimeClass});
     } else {
       // 重复上传移除文件
       this.uploader.removeFromQueue(fileItem);
@@ -258,9 +260,29 @@ export class UploaderComponent {
   }
 
   hideGallery(event: any) {
-    if (!['VIDEO', 'AUDIO'].includes(event.target.nodeName)) {
+    if (!['VIDEO', 'AUDIO', 'INPUT', 'H1'].includes(event.target.nodeName)) {
       this.imgShow = !this.imgShow;
       if (this.media) this.media.nativeElement.pause();
+    }
+  }
+
+  onUpdate(id: string, name: string) {
+    const result = this.files.find(item => item.id === parseInt(id));
+    if (result && result.name == name) return;
+    if (result && result.thumbId && result.thumbId > 0) {
+      // 更新缩略图图说
+      this.apiService.put(`/image/${result.thumbId}`, {type: 'up', title: name}).subscribe((res) => {
+        console.log(res)
+      });
+    }
+    if (parseInt(id) > 0) {
+      this.apiService.patch(`/files/${id}`, {name: name}).subscribe((res) => {
+        if (result) {
+          result.name = name;
+          this.files.splice(this.files.findIndex((file) => file.id === parseInt(id)), 1, result);
+        }
+        console.log(res)
+      });
     }
   }
 

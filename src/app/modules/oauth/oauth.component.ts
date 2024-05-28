@@ -20,7 +20,11 @@ export class OauthComponent implements OnInit {
         // 认证成功，跳转到受保护的路由
         this.oauthService.setupAutomaticSilentRefresh();
         this.oauthService.loadUserProfile().then(() => {
-          this.router.navigate(['/']).then();
+          const url = localStorage.getItem('currentPath');
+          if (url) {
+            localStorage.removeItem('currentPath');
+            location.href = url;
+          } else this.router.navigate(['/']).then();
         });
       } else {
         // 认证失败，跳转到错误页面或其他处理逻辑
