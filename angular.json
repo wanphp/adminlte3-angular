@@ -61,10 +61,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "adminlte3-angular:build:production"
+              "buildTarget": "adminlte3-angular:build:production"
             },
             "development": {
-              "browserTarget": "adminlte3-angular:build:development"
+              "buildTarget": "adminlte3-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +72,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "adminlte3-angular:build"
+            "buildTarget": "adminlte3-angular:build"
           }
         },
         "test": {

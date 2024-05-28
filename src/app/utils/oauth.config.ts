@@ -1,9 +1,9 @@
 import {AuthConfig} from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
-  issuer: 'https://www.wanphp.com',
-  tokenEndpoint: 'https://www.wanphp.com/auth/accessToken',
-  userinfoEndpoint: 'https://www.wanphp.com/api/userProfile',
+  issuer: 'https://www.ztit.cn',
+  tokenEndpoint: 'https://www.ztit.cn/auth/accessToken',
+  userinfoEndpoint: 'https://www.ztit.cn/api/userProfile',
   clientId: 'testClient',
   redirectUri: window.location.origin + '/adminlte4-angular/oauth',
   responseType: 'code',
