@@ -1,7 +1,7 @@
 import {FileItem} from './file-item.class';
 import {FileType} from './file-type.class';
 import {UploaderOptions} from './uploader.options';
-import {uploadFile} from "@components/uploader/uploader.component";
+import {uploadFile} from "./uploader.component";
 
 export class Uploader {
   private _options!: UploaderOptions;

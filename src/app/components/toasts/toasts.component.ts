@@ -2,6 +2,13 @@ import {Component, HostBinding, Input} from '@angular/core';
 import {NgbToastModule} from "@ng-bootstrap/ng-bootstrap";
 import {NgFor} from "@angular/common";
 
+interface Toast {
+  header: string;
+  content: string;
+  className?: string;
+  delay?: number;
+}
+
 @Component({
   selector: 'app-toasts',
   standalone: true,
@@ -26,32 +33,19 @@ export class ToastsComponent {
   autoHide = true;
   private _position = 'top';
 
-  toasts: any[] = [];
+  toasts: Toast[] = [];
 
   @Input()
   set position(val: string) {
-    switch (val) {
-      case 'middle':
-        this._position = 'top-50 start-50 translate-middle';
-        break;
-      case 'bottom':
-        this._position = 'bottom-0 start-50 translate-middle-x';
-        break;
-      case 'top-start':
-        this._position = 'top-0 start-0';
-        break;
-      case 'top-end':
-        this._position = 'top-0 end-0';
-        break;
-      case 'bottom-start':
-        this._position = 'bottom-0 start-0';
-        break;
-      case 'bottom-end':
-        this._position = 'bottom-0 end-0';
-        break;
-      default:
-        this._position = 'top-0 start-50 translate-middle-x';
-    }
+    const positions: { [key: string]: string } = {
+      middle: 'top-50 start-50 translate-middle',
+      bottom: 'bottom-0 start-50 translate-middle-x',
+      'top-start': 'top-0 start-0',
+      'top-end': 'top-0 end-0',
+      'bottom-start': 'bottom-0 start-0',
+      'bottom-end': 'bottom-0 end-0',
+    };
+    this._position = positions[val] || 'top-0 start-50 translate-middle-x';
   }
 
   get position(): string {
@@ -62,13 +56,16 @@ export class ToastsComponent {
     return 'toast-container position-fixed p-3 ' + this.position;
   }
 
+  @Input() customStyles: Partial<CSSStyleDeclaration> = {};
+
+  @HostBinding('style') get hostStyles(): Partial<CSSStyleDeclaration> {
+    return {zIndex: '1200', ...this.customStyles};
+  }
+
   onShow(content: string, header: string = '', className: string = '', delay: number = 5000) {
-    this.toasts.push({
-      header: header,
-      content: content,
-      className: className,
-      delay: delay
-    });
+    if (!this.toasts.some(toast => toast.content === content)) {
+      this.toasts.push({header, content, className, delay});
+    }
     return this;
   }
 
@@ -77,6 +74,8 @@ export class ToastsComponent {
   }
 
   clear() {
-    this.toasts.splice(0, this.toasts.length);
+    while (this.toasts.length) {
+      this.remove(this.toasts[0]);
+    }
   }
 }

@@ -1,12 +1,14 @@
 import {Component, ElementRef, EventEmitter, Input, NgZone, Output, Renderer2, RendererFactory2, ViewChild} from '@angular/core';
-import {Uploader} from "@components/uploader/uploader.class";
-import {UploaderOptions} from "@components/uploader/uploader.options";
-import {FileItem} from "@components/uploader/file-item.class";
-import {FileType} from "@components/uploader/file-type.class";
-import {ApiService} from "@services/api.service";
+import {Uploader} from "./uploader.class";
+import {UploaderOptions} from "./uploader.options";
+import {FileItem} from "./file-item.class";
+import {FileType} from "./file-type.class";
+import {ApiService} from "../../services/api.service";
 import {Store} from "@ngrx/store";
-import {AppState} from "@/store/state";
-import {ToastService} from "@components/toasts/toast.service";
+import {AppState} from "../../store";
+import {ToastService} from "../toasts/toast.service";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {NgbPopover} from "@ng-bootstrap/ng-bootstrap";
 
 export interface UploaderConfig {
   url: string;
@@ -45,6 +47,13 @@ export interface uploadFile {
 @Component({
   selector: 'app-uploader',
   templateUrl: './uploader.component.html',
+  standalone: true,
+  imports: [
+    NgClass,
+    NgForOf,
+    NgIf,
+    NgbPopover
+  ],
   styleUrls: ['./uploader.component.css']
 })
 export class UploaderComponent {
@@ -271,12 +280,12 @@ export class UploaderComponent {
     if (result && result.name == name) return;
     if (result && result.thumbId && result.thumbId > 0) {
       // 更新缩略图图说
-      this.apiService.put(`/image/${result.thumbId}`, {type: 'up', title: name}).subscribe((res) => {
+      this.apiService.put(`/image/${result.thumbId}`, {type: 'up', title: name}).subscribe((res: any) => {
         console.log(res)
       });
     }
     if (parseInt(id) > 0) {
-      this.apiService.patch(`/files/${id}`, {name: name}).subscribe((res) => {
+      this.apiService.patch(`/files/${id}`, {name: name}).subscribe((res: any) => {
         if (result) {
           result.name = name;
           this.files.splice(this.files.findIndex((file) => file.id === parseInt(id)), 1, result);
@@ -291,14 +300,14 @@ export class UploaderComponent {
     if (this.files && this.files.find((file) => file.id === parseInt(fileItem.id))) {
       // 删除已上传到服务器的文件
       if (parseInt(fileItem.id) > 0) {
-        this.apiService.delete(`/files/${fileItem.id}`).subscribe((res) => {
+        this.apiService.delete(`/files/${fileItem.id}`).subscribe((res: any) => {
           console.log(res)
         });
       }
       const result = this.files.find(item => item.id === parseInt(fileItem.id));
       if (result && result.thumbId && result.thumbId > 0) {
         // 删除缩略图片
-        this.apiService.delete(`/image/${result.thumbId}`).subscribe((res) => {
+        this.apiService.delete(`/image/${result.thumbId}`).subscribe((res: any) => {
           console.log(res)
         });
       }

@@ -1,16 +1,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {UserEntity} from "@/entities/user.entity";
 import {Title} from "@angular/platform-browser";
-import {UserService} from "@services/user.service";
-import {ToastService} from "@components/toasts/toast.service";
+import {FormsModule} from "@angular/forms";
+import {UserModel} from '../../model/user.model';
+import {UserService} from '../../services/user.service';
+import {ToastService} from '../../components/toasts/toast.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
+  standalone: true,
+  imports: [
+    FormsModule
+  ],
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: UserEntity = {} as UserEntity;
+  user: UserModel = {} as UserModel;
   @ViewChild('name') name!: any;
   @ViewChild('tel') tel!: any;
 
@@ -19,7 +24,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(user => {
+    this.userService.getUser().subscribe((user: any) => {
       this.user = user
     });
   }
@@ -33,7 +38,7 @@ export class ProfileComponent implements OnInit {
       this.toastService.warn('请填写你的手机号')
       return;
     }
-    this.userService.updateUser(this.user).subscribe(res => {
+    this.userService.updateUser(this.user).subscribe(() => {
       this.toastService.success('已更新')
     })
   }

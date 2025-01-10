@@ -1,15 +1,23 @@
 import {Component, HostBinding, Input, OnInit, Renderer2} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, Router, RouterLinkActive} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {openCloseAnimation, rotateAnimation} from './menu-item.animations';
 import {Store} from "@ngrx/store";
-import {AppState} from "@/store/state";
-import {ToggleSidebarMenu} from "@/store/ui/actions";
+import {AppState} from "../../store";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {sidebarAction} from '../../store/ui/actions';
 
 @Component({
   selector: 'app-menu-item',
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.css'],
+  standalone: true,
+  imports: [
+    RouterLinkActive,
+    NgForOf,
+    NgIf,
+    NgClass
+  ],
   animations: [openCloseAnimation, rotateAnimation]
 })
 export class MenuItemComponent implements OnInit {
@@ -53,7 +61,7 @@ export class MenuItemComponent implements OnInit {
 
   menuAction(menu: any) {
     if (window.innerWidth < 992) {
-      this.store.dispatch(new ToggleSidebarMenu());
+      this.store.dispatch(sidebarAction());
       this.renderer.removeClass(document.querySelector('app-root'), 'sidebar-is-hover');
     }
     if (menu.path) this.router.navigate(menu.path).then();

@@ -1,5 +1,5 @@
 import {FileItem} from './file-item.class';
-import {UploaderComponent} from "@components/uploader/uploader.component";
+import {UploaderComponent} from './uploader.component';
 
 /**
  * 组件配置项对象接口

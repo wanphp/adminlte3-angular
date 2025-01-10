@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {OAuthService} from "angular-oauth2-oidc";
 import {Router} from "@angular/router";
-import {authConfig} from "@/utils/oauth.config";
+import {authConfig} from '../../app.config';
 
 @Component({
   selector: 'app-oauth',
   templateUrl: './oauth.component.html',
+  standalone: true,
   styleUrls: ['./oauth.component.css']
 })
 export class OauthComponent implements OnInit {
@@ -14,7 +15,7 @@ export class OauthComponent implements OnInit {
 
   ngOnInit() {
     this.oauthService.configure(authConfig);
-    this.oauthService.setStorage(localStorage)
+    this.oauthService.setStorage(sessionStorage)
     this.oauthService.tryLogin().then(() => {
       if (this.oauthService.hasValidAccessToken()) {
         // 认证成功，跳转到受保护的路由

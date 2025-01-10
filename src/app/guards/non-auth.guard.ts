@@ -1,35 +1,31 @@
 import {Injectable} from '@angular/core';
-import { Route, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import {UrlTree, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class NonAuthGuard  {
-    constructor(private router: Router) {}
+export class NonAuthGuard {
+  constructor(private router: Router) {
+  }
 
-    canActivate(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ):
-        | Observable<boolean | UrlTree>
-        | Promise<boolean | UrlTree>
-        | boolean
-        | UrlTree {
-        if (!localStorage.getItem('token')) {
-            return true;
-        }
-        this.router.navigate(['/']);
-        return false;
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    if (!localStorage.getItem('token')) {
+      return true;
     }
-    canActivateChild(
-        next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ):
-        | Observable<boolean | UrlTree>
-        | Promise<boolean | UrlTree>
-        | boolean
-        | UrlTree {
-        return this.canActivate(next, state);
-    }
+    this.router.navigate(['/']);
+    return false;
+  }
+
+  canActivateChild():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
+    return this.canActivate();
+  }
 }

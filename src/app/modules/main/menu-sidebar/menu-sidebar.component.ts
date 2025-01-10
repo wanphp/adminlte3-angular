@@ -1,26 +1,39 @@
-import {UiState} from '@/store/ui/state';
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {OAuthService} from "angular-oauth2-oidc";
+import {NgForOf} from "@angular/common";
+import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
+import {RouterLink} from "@angular/router";
+import {MenuItemComponent} from '../../../components/menu-item/menu-item.component';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../store';
+import {AuthState} from '../../../store/auth/reducer';
+import {UserModel} from '../../../model/user.model';
 
 const BASE_CLASSES = 'app-sidebar bg-body-tertiary shadow';
 
 @Component({
   selector: 'app-menu-sidebar',
   templateUrl: './menu-sidebar.component.html',
+  standalone: true,
+  imports: [
+    MenuItemComponent,
+    NgForOf,
+    NgbTooltip,
+    RouterLink
+  ],
   styleUrls: ['./menu-sidebar.component.css']
 })
 export class MenuSidebarComponent implements OnInit {
   @HostBinding('class') classes: string = BASE_CLASSES;
-  public ui: Observable<UiState> = new Observable<UiState>();
-  public user: any;
+  public user: UserModel | null = null;
   public menu: any;
 
-  constructor(public oauthService: OAuthService) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.user = this.oauthService.getIdentityClaims();
+    this.store.select('auth').subscribe(({loginUser}: AuthState) => {
+      this.user = loginUser;
+    });
     this.menu = [
       {
         name: 'Dashboard',
